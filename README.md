@@ -15,11 +15,31 @@
 </li>
 
 <li>
-<a href="https://muhammetfurkanozenn.github.io/AdvanceProgrammingLangClass/cw7.html">CW2</a>
+<a href="https://muhammetfurkanozenn.github.io/AdvanceProgrammingLangClass/cw2.html">CW2</a>
+</li>
+
+<li>
+<a href="https://muhammetfurkanozenn.github.io/AdvanceProgrammingLangClass/cw3.html">CW3</a>
+</li>
+
+<li>
+<a href="https://muhammetfurkanozenn.github.io/AdvanceProgrammingLangClass/cw4.html">CW4</a>
+</li>
+
+<li>
+<a href="https://muhammetfurkanozenn.github.io/AdvanceProgrammingLangClass/cw5.html">CW5</a>
+</li>
+
+<li>
+<a href="https://muhammetfurkanozenn.github.io/AdvanceProgrammingLangClass/cw6.html">CW6</a>
 </li>
 
 <li>
 <a href="https://muhammetfurkanozenn.github.io/AdvanceProgrammingLangClass/cw7.html">CW7</a>
+</li>
+
+<li>
+<a href="https://muhammetfurkanozenn.github.io/AdvanceProgrammingLangClass/subtleCrypto.html">CW8</a>
 </li>
 
 </ul>
