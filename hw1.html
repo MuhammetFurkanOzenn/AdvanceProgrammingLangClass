@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>Poisson Probabilities</title>
+    <title> Multiplication Table</title>
 
   <style>
     body { max-width: 440px; }
@@ -15,9 +15,9 @@
 <body>
 
 <h2 id=title></h2>
-x = <input type=number id=ex value=0 onChange="calculate()">
+x = <input type=number id=ex value=1 onChange="calculate()">
 &emsp;
-λ = <input type=number id=lam value=1 onChange="calculate()">
+y = <input type=number id=yy value=1 onChange="calculate()">
 &emsp;
 <span id=res></span>
 <pre id=out><b>Table</b></pre>
@@ -27,40 +27,38 @@ x = <input type=number id=ex value=0 onChange="calculate()">
 <pre id=sample></pre>
 
 <hr />
-<p>Ref: <a href="https://www.dummies.com/education/math/business-statistics/how-to-compute-poisson-probabilities/" 
-   target="NewTab">Poisson Table</a>
+<p>Ref: <a href="https://en.wikipedia.org/wiki/Multiplication_table" 
+   target="NewTab">Multiplication Table</a>
 </p>
 
 <script>
 "use strict";
-function poisson(x, λ, f=4) {
-    let p = Math.exp(-λ)
-    for (let k=1; k<=x; k++) p = p*λ/k
-    return p.toFixed(f)
+function mul(x, y) {
+    return x*y
 }
 function calculate() {
     let x = Number(ex.value)
     if (!Number.isInteger(x)) {
        x = Math.round(x); ex.value = x
     }
-    let λ = Number(lam.value)
-    res.innerText = "P(x, λ) = "+poisson(x, λ)
+    let y = Number(yy.value)
+    res.innerText = "P(x, y) = "+mul(x, y)
 }
 function doTable() {
-    const L = [1, 2, 3, 4, 5, 6]
-    let a = L.map((λ) => 'λ='+λ)
+    const L = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    let a = L.map((y) => y)
     let str = header(a)
-    for (let x=0; x<=8; x++) { 
-       let a = L.map((λ) => poisson(x, λ))
+    for (let x=1; x<=10; x++) { 
+       let a = L.map((y) => mul(x, y))
        str += oneLine(a, x)
     }
     return str
 }
-let header  = (a) => '      '+ a.join('   ')  //pre
-let oneLine = (a, x) => '\nx='+x+'  '+ a.join(' ')
+let header  = (a) => '    '+ a.join('   ')  //pre
+let oneLine = (a, x) => '\n'+x+'   '+ a.join('   ')
     
     title.innerText = document.title
-    sample.innerText = poisson+'\n'+doTable
+    sample.innerText = mul+'\n'+doTable
     calculate()
     out.innerText = doTable()
 </script>
