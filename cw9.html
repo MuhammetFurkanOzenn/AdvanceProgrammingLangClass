@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title> Multiplication Table</title>
+
+  <style>
+    body { max-width: 440px; }
+    pre  { overflow-x: auto; }
+    input { width: 50px }
+  </style>
+</head>
+
+<body>
+
+<h2 id=title></h2>
+x = <input type=number id=ex value=1 onChange="calculate()">
+&emsp;
+y = <input type=number id=yy value=1 onChange="calculate()">
+&emsp;
+<span id=res></span>
+<pre id=out><b>Table</b></pre>
+
+<hr />
+<b>Sample code</b>
+<pre id=sample></pre>
+
+<hr />
+<b>Original Table</b>
+<p></p>
+<img src="images/mulTable.png" width="400" height="400"/>
+<p>Ref: <a href="https://en.wikipedia.org/wiki/Multiplication_table" 
+   target="NewTab">Multiplication Table</a>
+</p>
+
+<script>
+"use strict";
+function mul(x, y) {
+    return x*y
+}
+function calculate() {
+    let x = Number(ex.value)
+    if (!Number.isInteger(x)) {
+       x = Math.round(x); ex.value = x
+    }
+    let y = Number(yy.value)
+    res.innerText = "P(x, y) = "+mul(x, y)
+}
+function doTable() {
+    const L = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    let a = L.map((y) => y)
+    let str = header(a)
+    for (let x=1; x<=10; x++) { 
+       let a = L.map((y) => mul(x, y))
+       str += oneLine(a, x)
+    }
+    return str
+}
+let header  = (a) => '    '+ a.join('   ')  //pre
+let oneLine = (a, x) => '\n'+x+'   '+ a.join('   ')
+    
+    title.innerText = document.title
+    sample.innerText = mul+'\n'+doTable
+    calculate()
+    out.innerText = doTable()
+</script>
+
+</body>
+</html>
