@@ -1,0 +1,67 @@
+<!-- <img src="images/cw6.jpeg"/> -->
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" href="https://blm-fsmvu.github.io/305/images/icon192.png">
+    <title>Muhammet Furkan ÖZEN </title>
+
+  <style> /* CSS comment */
+    body { max-width: 440px; }
+    #url { width: 190px; }
+    span, #url { color: blue; }
+  </style>
+</head>
+
+<body>   <!-- HTML comment: Modify all items marked xxx -->
+
+<h2 id=title title="Muhammet Furkan Özen"></h2>
+<h2>Battery Status</h2>
+<p title="Battery level (integer)">
+    Battery Level :<span id=batLev></span>
+    Is Charging   :<span id=batStChr></span>
+    <!-- <span id=batStChange></span> -->
+</p>
+
+<h2>Online Status</h2>
+<p title="Battery level (integer)">
+  connected -- <span id=onlineSt></span>
+</p>
+
+<h2>Keyboard</h2>
+<p title="Battery level (integer)">
+    <span id=keyboard></span>
+</p>
+
+
+<hr />
+<b>Sample code</b>
+<pre id=sample>This text is not shown. Why?</pre>
+
+<hr />
+
+<script>
+"use strict";
+function init() {
+    onlineSt.innerText ="online" // initial value, if page is open its online
+    window.ononline = e => onlineSt.innerText = e.type
+    window.onoffline = e => onlineSt.innerText = e.type
+    
+    window.onkeyup = e => keyboard.innerText = e.key
+
+    navigator.getBattery().then(b =>{
+        batLev.innerText = b.level +"\n"
+        batStChr.innerText = b.charging ? "Charging \n":"Discharging \n"
+        b.onlevelchange = (batStChr.innerText = b.charging ? "Charging \n":"Discharging \n")
+        b.onchargingchange = (batStChr.innerText = b.charging ? "Charging \n":"Discharging \n")
+        console.log(b)
+    });
+}
+    title.innerText = document.title;
+    sample.innerText = init+'\n';
+    init();
+</script>
+
+</body>
+</html>
