@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" href="../images/icon192.png">
+    <title>GitHub Users</title>
+    <style>
+        body {
+            max-width: 440px;
+        }
+
+        img {
+            padding-right: 12px;
+            width: 300px;
+            float: left;
+        }
+
+        div {
+            padding-left: 25px;
+        }
+
+        pre {
+            overflow-x: auto;
+        }
+
+        #out {
+            color: blue;
+            position: block;
+            padding-bottom: 300px;
+        }
+
+        #nname {
+            font-weight: bold;
+            font-size: 28px;
+        }
+
+        #userName {
+            font-weight: bold;
+            font-size: 22px;
+            color: grey;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <h2 id=title></h2>
+    <input type=text id=usr value=muhammetfurkanozenn onChange="readUser()">
+    <div>
+        <p id=out>IMG/p>
+        <p id=nname>Name</p>
+        <p id=userName>User Name</p>
+        <p id=bio>Bio : </p>
+        <p id=company>Company : </p>
+        <p id=locationn>Location : </p>
+        <p id=gitHub>GitHub : </p>
+        <p id=gitHubIo>GitHub.io : </p>
+        <hr />
+    </div>
+
+    <b>Sample code</b>
+    <pre id=sample></pre>
+    <hr />
+    <p>Ref:
+        <a href="https://docs.github.com/en/rest/reference/rate-limit" target=NewTab>GitHub API</a> &emsp;
+        <a href="await.html" target=NewTab>await</a>
+    </p>
+
+    <script>
+        "use strict";
+        function error(e) {
+            out.innerText = e
+            out.style.color = 'red'
+            console.error(e)
+        }
+        function cause(s) {
+            switch (s) {
+                case 403:
+                    return 'Rate limit exceeded'
+                case 404:
+                    return usr.value + ' not found'
+                default:
+                    return 'Status ' + s
+            }
+        }
+        async function toJSON(url) {
+            try {
+                let r = await fetch(url)
+                if (!r.ok) throw cause(r.status)
+                return r.json()
+            } catch (e) {
+                error(e)
+            }
+        }
+        async function readUser() {
+            const URL = "https://api.github.com/users/"
+            const BR = '<BR>'
+            let u = await toJSON(URL + usr.value)
+            if (!u || !u.login) return
+            out.style.color = ''
+            bio.innerHTML = 'Bio : '
+            company.innerHTML = 'Company : '
+            locationn.innerHTML = 'Location : '
+            gitHub.innerHTML = 'GitHub : '
+            gitHubIo.innerHTML = 'GitHub.io : '
+            //start with avatar
+            out.innerHTML = `<img src="${u.avatar_url}">`
+
+            nname.innerHTML = u.name
+            userName.innerHTML = u.login
+            bio.innerHTML += u.bio
+            company.innerHTML += u.company
+            locationn.innerHTML += u.location
+            let h = "https://"+u.login+".github.io/"
+            gitHub.innerHTML += `<a href='${u.html_url}'>${u.html_url}</a>`
+            gitHubIo.innerHTML += `<a href='${h}'>${h}</a>`
+        }
+        title.innerText = document.title
+        sample.innerText = toJSON + '\n' + readUser
+        readUser()
+    </script>
+</body>
+
+</html>
