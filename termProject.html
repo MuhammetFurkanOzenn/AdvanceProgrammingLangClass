@@ -11,18 +11,54 @@
             width: 100%;
             height: 100%;
             max-width: 400px;
+            padding: 0;
+            margin: 0;
             align-content: center;
             flex-direction: row;
         }
 
-        #sample {
-            overflow-x: auto;
+        .bg{
+            position: absolute;
+        }
+        
+        .buttons{
+            position: relative;
+            flex-direction: row;
+            display: flex;
+            
         }
 
-        button {
-            user-select: none;
-            cursor: pointer;
-            margin-left: 150px;
+        .startButton{
+            position: relative;
+            /* width: 400px;
+            height: 800px; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .questionContainer{
+            
+        }
+
+        .hide{
+            display: none;
+        }
+
+        #question{
+            padding-top: 40px;
+            padding-left: 20px;
+            position: absolute;
+            color: white;
+        }
+
+        #btn{
+            color: black;
+            background-color: white;
+            width: 100px;
+            height: 30px;
+            border: 1px solid;
+            border-radius: 5px;
         }
 
         #spaceBox {
@@ -44,19 +80,73 @@
             flex-direction: column;
         }
 
-        #world {
-            margin-right: 200px;
-        }
-
         #sun {
             justify-self: center;
-            position: absolute;
+            position: relative;
+            padding-top: 300px;
+        }
+
+        #mercury {
+            justify-self: center;
+            position: relative;
+            padding-top: 280px;
+            /* padding-left: 10px; */
+        }
+
+        #venus {
+            justify-self: center;
+            position: relative;
+            padding-top: 240px;
+            /* padding-left: 10px; */
+        }
+
+        #world {
+            justify-self: center;
+            position: relative;
+            padding-top: 210px;
+            /* padding-left: 10px; */
+        }
+        
+        #mars {
+            justify-self: center;
+            position: relative;
+            padding-top: 190px;
+            /* padding-left: 10px; */
+        }
+
+        #jupiter {
+            justify-self: center;
+            position: relative;
+            padding-top: 170px;
+            /* padding-left: 10px; */
+        }
+
+        #saturn {
+            justify-self: center;
+            position: relative;
+            padding-top: 140px;
+            /* padding-left: 10px; */
+        }
+
+        #uranus {
+            justify-self: center;
+            position: relative;
+            padding-top: 110px;
+            display: none;
+            /* padding-left: 10px; */
         }
 
         #worldAxis {
             padding-right: 100px;
             position: absolute;
         }
+        /* @media screen and (min-width: 600px) {
+            .image{
+                display: none;
+            }
+        } */
+        
+        
 
     </style>
 </head>
@@ -64,9 +154,166 @@
 <body>
 
     <h2 id=title></h2>
-    <img src="images/space.jpg" height="800" width="400"/>
+    <div >
+        <div class="bg">
+            <img src="images/space.jpg" height="800" width="440" />
+        </div>
+        <div class="startButton">
+            <button id="btn">Start</button>
+        </div>
+        <div id="questionContainer" class="hide">
+            <div class="buttons">
+                <div id="sun">
+                    <img src="images/hw3_sun.png" height="80" width="80" onclick="planetAnimate(sun)">
+                </div>
 
+                <div id="mercury">
+                    <img src="images/planets/mercury.png" height="40" width="40" onclick="planetAnimate(mercury)" >
+                </div>
+
+                <div id="venus">
+                    <img src="images/planets/venus.png" height="50" width="50" onclick="planetAnimate(venus)" >
+                </div>
+
+                <div id="world">
+                    <img src="images/hw3_world.png" height="50" width="50" onclick="planetAnimate(world)" >
+                </div>
+
+                <div id="mars">
+                    <img src="images/planets/mars.png" height="50" width="50" onclick="planetAnimate(mars)" >
+                </div>
+
+                <div id="jupiter">
+                    <img src="images/planets/jupiter.png" height="50" width="50" onclick="planetAnimate(jupiter)" >
+                </div>
+
+                <div id="saturn">
+                    <img src="images/planets/saturn.png" height="50" width="100" onclick="planetAnimate(saturn)" >
+                </div>
+
+                <div id="uranus">
+                    <img src="images/planets/uranus.png" height="50" width="100" onclick="planetAnimate(uranus)" >
+                </div>
+            </div>
+        <p id="question" ></p>
+        </div>
+    </div>
     <script>
+        "use strict";
+        title.innerText = document.title;
+        let questionsArray = ['q0','q1','q2','q3','q4','q5','q6','q7','q8','q9'];
+        //document.getElementById("trackdetails").innerHTML = questions;
+        const startButton = document.getElementById('btn')
+        const questionContainer = document.getElementById('questionContainer')
+        const question = document.getElementById('question')
+        startButton.addEventListener('click', startGame)
+
+        let
+            r0 = "rotate(0)", x0 = "translateX(0)", index = 0, bool = true,
+            turnAround = { transform: [r0, "rotate(360deg)"] },
+            rise = { transform: [x0, "translateY(-40px)", x0] };
+
+        function startGame (){
+            console.log("game started.. ");
+            startButton.classList.add('hide')
+            questionContainer.classList.remove('hide')
+            question.innerText = questionsArray[index]
+
+        }
+        
+        function planetAnimate (planet){
+            // r0 = "rotate(0)", x0 = "translateX(0)",
+            //t_axis = { transform: [r0, "rotate(360deg)"] }
+            // sun.animate(turnAround, 6000),
+            console.log("bool 1: ", bool)
+
+            if(bool){
+                bool = false
+                console.log("bool 2: ", bool)
+                if (planet === sun){
+                    console.log('sun equals planet')
+                    planet.animate(rise, 3000)
+                    console.log("clicked..")
+                }
+                else if (planet === mercury){
+                    console.log('mercury equals planet')
+                    planet.animate(rise, 3000)
+                    console.log("clicked..")
+                }
+                else if (planet === venus){
+                    console.log('venus equals planet')
+                    planet.animate(rise, 3000)
+                    console.log("clicked..")
+                }
+                else if (planet === world){
+                    if(index === 0){
+                        console.log('world equals planet')
+                        planet.animate(rise, 3000)
+                        console.log("clicked..")
+                    }
+                    else {
+                        console.log('world equals planet but index is not 0 !')
+                        planet.animate(rise, 1000)
+                    }
+                    
+                }
+                else if (planet === mars){
+                    console.log('mars equals planet')
+                    planet.animate(rise, 3000)
+                    console.log("clicked..")
+                }
+                else if (planet === jupiter){
+                    console.log('jupiter equals planet')
+                    planet.animate(rise, 3000)
+                    console.log("clicked..")
+                }
+                else if (planet === saturn){
+                    console.log('saturn equals planet')
+                    planet.animate(rise, 3000)
+                    console.log("clicked..")
+                }
+                else if (planet === uranus){
+                    console.log('uranus equals planet')
+                    planet.animate(rise, 3000)
+                    console.log("clicked..")
+                }
+                else if (planet === venus){
+                    console.log('venus equals planet')
+                    planet.animate(rise, 3000)
+                    console.log("clicked..")
+
+                }
+
+                
+                
+                setTimeout(() => {  question.innerText = questionsArray[++index], bool = true, console.log("bool 3: ", bool)},  5000);
+                
+                
+            }
+        }
+
+        // function sleep(delay) {
+        //     var start = new Date().getTime();
+        //     while (new Date().getTime() < start + delay);
+        // }
+        /*
+            questions 0-9
+            checkedList [9];
+            if question asked, check to the array with index
+
+            question index should same with planet (answer) index
+            if equals planet move up.
+            if its not planet blow ups and the other planets to be affected that.
+        
+        */
+
+
+        // let
+        //     r0 = "rotate(0)", x0 = "translateX(0)",
+        //     // t_sun = { transform: ["translateY(-120px)", "translateY(-120px)"] },
+        //     t_axis = { transform: [r0, "rotate(360deg)"] };
+        //     // t_colors = { background: [rgb(5, 5, 83), "red", "purple", "yellow"] },
+        //     // a = [t1, t2, t3, t4]; 
     </script>
 
 </body>
