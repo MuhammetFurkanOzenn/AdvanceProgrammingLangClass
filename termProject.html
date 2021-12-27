@@ -196,7 +196,7 @@
     
     <div >
         <div class="bg">
-            <img src="images/space.jpg" height="800" width="440" />
+            <img src="images/space.jpg" height="800" width="400" />
         </div>
         <h2 id=title></h2>
         <div id="startBtnn" class="startButtonElement" class="hide">
@@ -249,16 +249,16 @@
         "use strict";
         title.innerText = document.title;
         let questionsArray = [
-            'Which planet has living creatures on it?',
-            'Which one is the biggest planet ?',
-            'Which one is the hottest planet ?',
-            'Which one is the fastest planet ?', //3 Which was the first planet discovered using a telescope?
-            'q4',
-            'q5',
-            'q6',
+            'Which planet has living creatures on it?', // world
+            'Which one is the second biggest planet ?', // jupiter
+            'Which one is the hottest planet ?',        // venus
+            'Which one is the fastest planet ?',        // jupiter
+            'which is the least dense planet in the solar system ?',    // saturn
+            "Which planet is 110 times larger than Earth's diameter?",  //sun
+            'Which planet is also known as the red planet ?', //mars
             'q7',
             'q8',
-            'q9'];
+            'q9'];                                      // Which was the first planet discovered using a telescope?
         //document.getElementById("trackdetails").innerHTML = questions;
         const startButton = document.getElementById('btn')
         const startButtonElement = document.getElementById('startBtnn')
@@ -313,9 +313,16 @@
                 console.log("bool 2: ", bool)
 
                 if (planet === sun){
-                    console.log('sun equals planet')
-                    planet.animate(rise, 3000)
-                    console.log("clicked..")
+                    if(index === 5){
+                        console.log('sun equals planet')
+                        planet.animate(rise, 3000)
+                        console.log("clicked..")
+                        ++numberOfTrueAnswers
+                        console.log("score : ", numberOfTrueAnswers)
+                    }
+                    else{
+                        planet.animate(blowUp, 1000)
+                    }
                 }
                 else if (planet === mercury){
                     if(index === 3){
@@ -326,7 +333,7 @@
                         console.log("score : ", numberOfTrueAnswers)
                     }
                     else{
-
+                        planet.animate(blowUp, 1000)
                     }
                 }
                 else if (planet === venus){
@@ -351,13 +358,12 @@
 
                     }
                     else {
-                        console.log('world equals planet but index is not 0 !')
                         planet.animate(blowUp, 1000)
                     }
                     
                 }
                 else if (planet === mars){
-                    if(index === 3){
+                    if(index === 6){
                         console.log('mars equals planet')
                         planet.animate(rise, 3000)
                         console.log("clicked..")
@@ -365,11 +371,11 @@
                         console.log("score : ", numberOfTrueAnswers)
                     }
                     else{
-
+                        planet.animate(blowUp, 1000)
                     }
                 }
                 else if (planet === jupiter){
-                    if(index === 1){
+                    if(index === 1 || index === 3){
                         console.log('jupiter equals planet')
                         planet.animate(rise, 3000)
                         console.log("clicked..")
@@ -377,14 +383,20 @@
                         console.log("score : ", numberOfTrueAnswers)
                     }
                     else{
-                        console.log('jupiter equals planet but index is not 0 !')
                         planet.animate(blowUp, 1000)
                     }
                 }
                 else if (planet === saturn){
-                    console.log('saturn equals planet')
-                    planet.animate(rise, 3000)
-                    console.log("clicked..")
+                    if(index === 4){
+                        console.log('saturn equals planet')
+                        planet.animate(rise, 3000)
+                        console.log("clicked..")
+                        ++numberOfTrueAnswers
+                        console.log("score : ", numberOfTrueAnswers)
+                    }
+                    else{
+                        planet.animate(blowUp, 1000)
+                    }
                 }
                 else if (planet === uranus){
                     if(index === 9){ // not usable for now
@@ -395,12 +407,12 @@
                         console.log("score : ", numberOfTrueAnswers)
                     }
                     else{
-
+                        planet.animate(blowUp, 1000)
                     }
                 }
 
                 
-                let numberOfQuestions = 5
+                let numberOfQuestions = 7
                 setTimeout(() => {  
                     question.innerText = questionsArray[++index], 
                     bool = true, 
