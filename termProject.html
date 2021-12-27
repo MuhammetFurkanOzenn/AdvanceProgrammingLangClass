@@ -7,6 +7,11 @@
     <title>Term Project</title>
 
     <style>
+
+        h2 {
+            color: white;
+            position: relative;
+        }
         body {
             width: 100%;
             height: 100%;
@@ -28,15 +33,6 @@
             
         }
 
-        .startButton{
-            position: relative;
-            /* width: 400px;
-            height: 800px; */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
         .questionContainer{
             
         }
@@ -44,12 +40,33 @@
         .hide{
             display: none;
         }
-
+        
+        .startButtonElement{
+            position: relative;
+            /* width: 400px;
+            height: 800px; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+            
         #question{
             padding-top: 40px;
             padding-left: 20px;
             position: absolute;
             color: white;
+        }
+
+        #scoreContainer{
+
+        }
+        
+        #score{
+            padding-top: 40px;
+            padding-left: 20px;
+            position: absolute;
+            color: white;
+            
         }
 
         #btn{
@@ -60,6 +77,29 @@
             border: 1px solid;
             border-radius: 5px;
         }
+
+        #startBtnn{
+
+            
+        }
+        #restartButton{
+            position: relative;
+            /* width: 400px;
+            height: 800px; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #btnRestart{
+            color: black;
+            background-color: white;
+            width: 100px;
+            height: 30px;
+            border: 1px solid;
+            border-radius: 5px;
+        }
+        
 
         #spaceBox {
             height: 200px;
@@ -153,18 +193,25 @@
 
 <body>
 
-    <h2 id=title></h2>
+    
     <div >
         <div class="bg">
             <img src="images/space.jpg" height="800" width="440" />
         </div>
-        <div class="startButton">
+        <h2 id=title></h2>
+        <div id="startBtnn" class="startButtonElement" class="hide">
             <button id="btn">Start</button>
+        </div>
+        <div id="restartButton" class="hide">
+            <button id="btnRestart" class="hide">Restart</button>
+        </div>
+        <div id="scoreContainer" class="hide">
+            <p id="score">Score : </p>
         </div>
         <div id="questionContainer" class="hide">
             <div class="buttons">
                 <div id="sun">
-                    <img src="images/hw3_sun.png" height="80" width="80" onclick="planetAnimate(sun)">
+                    <img src="images/hw3_sun.png" height="50" width="50" onclick="planetAnimate(sun)">
                 </div>
 
                 <div id="mercury">
@@ -201,23 +248,57 @@
     <script>
         "use strict";
         title.innerText = document.title;
-        let questionsArray = ['q0','q1','q2','q3','q4','q5','q6','q7','q8','q9'];
+        let questionsArray = [
+            'Which planet has living creatures on it?',
+            'Which one is the biggest planet ?',
+            'Which one is the hottest planet ?',
+            'Which one is the fastest planet ?', //3 Which was the first planet discovered using a telescope?
+            'q4',
+            'q5',
+            'q6',
+            'q7',
+            'q8',
+            'q9'];
         //document.getElementById("trackdetails").innerHTML = questions;
         const startButton = document.getElementById('btn')
+        const startButtonElement = document.getElementById('startBtnn')
         const questionContainer = document.getElementById('questionContainer')
         const question = document.getElementById('question')
+        const scoreElement = document.getElementById('scoreContainer')
+        const score = document.getElementById('score')
+        const restartButton = document.getElementById('btnRestart')
+        const restartButtonElement = document.getElementById('restartButton')
+
+        
         startButton.addEventListener('click', startGame)
+        restartButton.addEventListener('click', restartsGame)
 
         let
-            r0 = "rotate(0)", x0 = "translateX(0)", index = 0, bool = true,
+            r0 = "rotate(0)", x0 = "translateX(0)", index = 0, bool = true, numberOfTrueAnswers = 0,
             turnAround = { transform: [r0, "rotate(360deg)"] },
-            rise = { transform: [x0, "translateY(-40px)", x0] };
+            rise = { transform: [x0, "translateY(-80px)", x0] },
+            blowUp = { transform: [x0, "translateY(80px)", x0] };
 
         function startGame (){
             console.log("game started.. ");
+            startButtonElement.classList.add('hide')
             startButton.classList.add('hide')
             questionContainer.classList.remove('hide')
             question.innerText = questionsArray[index]
+
+        }
+
+        function restartsGame(){
+            index = 0
+            numberOfTrueAnswers = 0
+            bool= true 
+            score.innerText = 'Score : '
+            restartButton.classList.add('hide')
+            scoreElement.classList.add('hide')
+            console.log("restarting...")
+            startGame()
+
+            
 
         }
         
@@ -230,42 +311,75 @@
             if(bool){
                 bool = false
                 console.log("bool 2: ", bool)
+
                 if (planet === sun){
                     console.log('sun equals planet')
                     planet.animate(rise, 3000)
                     console.log("clicked..")
                 }
                 else if (planet === mercury){
-                    console.log('mercury equals planet')
-                    planet.animate(rise, 3000)
-                    console.log("clicked..")
+                    if(index === 3){
+                        console.log('mercury equals planet')
+                        planet.animate(rise, 3000)
+                        console.log("clicked..")
+                        ++numberOfTrueAnswers
+                        console.log("score : ", numberOfTrueAnswers)
+                    }
+                    else{
+
+                    }
                 }
                 else if (planet === venus){
-                    console.log('venus equals planet')
-                    planet.animate(rise, 3000)
-                    console.log("clicked..")
+                    if(index === 2){
+                        console.log('venus equals planet')
+                        planet.animate(rise, 3000)
+                        console.log("clicked..")
+                        ++numberOfTrueAnswers
+                        console.log("score : ", numberOfTrueAnswers)
+                    }
+                    else{
+                        planet.animate(blowUp, 1000)
+                    }
                 }
                 else if (planet === world){
                     if(index === 0){
                         console.log('world equals planet')
                         planet.animate(rise, 3000)
                         console.log("clicked..")
+                        ++numberOfTrueAnswers
+                        console.log("score : ", numberOfTrueAnswers)
+
                     }
                     else {
                         console.log('world equals planet but index is not 0 !')
-                        planet.animate(rise, 1000)
+                        planet.animate(blowUp, 1000)
                     }
                     
                 }
                 else if (planet === mars){
-                    console.log('mars equals planet')
-                    planet.animate(rise, 3000)
-                    console.log("clicked..")
+                    if(index === 3){
+                        console.log('mars equals planet')
+                        planet.animate(rise, 3000)
+                        console.log("clicked..")
+                        ++numberOfTrueAnswers
+                        console.log("score : ", numberOfTrueAnswers)
+                    }
+                    else{
+
+                    }
                 }
                 else if (planet === jupiter){
-                    console.log('jupiter equals planet')
-                    planet.animate(rise, 3000)
-                    console.log("clicked..")
+                    if(index === 1){
+                        console.log('jupiter equals planet')
+                        planet.animate(rise, 3000)
+                        console.log("clicked..")
+                        ++numberOfTrueAnswers
+                        console.log("score : ", numberOfTrueAnswers)
+                    }
+                    else{
+                        console.log('jupiter equals planet but index is not 0 !')
+                        planet.animate(blowUp, 1000)
+                    }
                 }
                 else if (planet === saturn){
                     console.log('saturn equals planet')
@@ -273,23 +387,34 @@
                     console.log("clicked..")
                 }
                 else if (planet === uranus){
-                    console.log('uranus equals planet')
-                    planet.animate(rise, 3000)
-                    console.log("clicked..")
-                }
-                else if (planet === venus){
-                    console.log('venus equals planet')
-                    planet.animate(rise, 3000)
-                    console.log("clicked..")
+                    if(index === 9){ // not usable for now
+                        console.log('uranus equals planet')
+                        planet.animate(rise, 3000)
+                        console.log("clicked..")
+                        ++numberOfTrueAnswers
+                        console.log("score : ", numberOfTrueAnswers)
+                    }
+                    else{
 
+                    }
                 }
 
                 
-                
-                setTimeout(() => {  question.innerText = questionsArray[++index], bool = true, console.log("bool 3: ", bool)},  5000);
+                let numberOfQuestions = 5
+                setTimeout(() => {  
+                    question.innerText = questionsArray[++index], 
+                    bool = true, 
+                    console.log("bool 3: ", bool),
+                    index === numberOfQuestions ? questionContainer.classList.add('hide') : index=index,
+                    index === numberOfQuestions ? score.innerText += numberOfTrueAnswers : index=index,
+                    index === numberOfQuestions ? scoreElement.classList.remove('hide') : index=index,
+                    index === numberOfQuestions ? restartButton.classList.remove('hide') : index=index,
+                    index === numberOfQuestions ? restartButtonElement.classList.remove('hide') : index=index
+                    },  5000);
                 
                 
             }
+            
         }
 
         // function sleep(delay) {
