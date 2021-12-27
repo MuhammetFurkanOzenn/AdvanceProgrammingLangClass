@@ -69,6 +69,13 @@
             
         }
 
+        #highScore{
+            padding-top: 40px;
+            padding-left: 20px;
+            position: absolute;
+            color: white;
+        }
+
         #btn{
             color: black;
             background-color: white;
@@ -206,6 +213,8 @@
             <button id="btnRestart" class="hide">Restart</button>
         </div>
         <div id="scoreContainer" class="hide">
+            <p id="highScore">High Score : </p>
+            <br>
             <p id="score">Score : </p>
         </div>
         <div id="questionContainer" class="hide">
@@ -266,6 +275,7 @@
         const question = document.getElementById('question')
         const scoreElement = document.getElementById('scoreContainer')
         const score = document.getElementById('score')
+        const highScore = document.getElementById('highScore')
         const restartButton = document.getElementById('btnRestart')
         const restartButtonElement = document.getElementById('restartButton')
 
@@ -274,7 +284,7 @@
         restartButton.addEventListener('click', restartsGame)
 
         let
-            r0 = "rotate(0)", x0 = "translateX(0)", index = 0, bool = true, numberOfTrueAnswers = 0,
+            r0 = "rotate(0)", x0 = "translateX(0)", index = 0, bool = true, numberOfTrueAnswers = 0, highScoree = 0,
             turnAround = { transform: [r0, "rotate(360deg)"] },
             rise = { transform: [x0, "translateY(-80px)", x0] },
             blowUp = { transform: [x0, "translateY(80px)", x0] };
@@ -293,6 +303,8 @@
             numberOfTrueAnswers = 0
             bool= true 
             score.innerText = 'Score : '
+            highScore.innerText = 'High Score : '
+
             restartButton.classList.add('hide')
             scoreElement.classList.add('hide')
             console.log("restarting...")
@@ -411,7 +423,7 @@
                     }
                 }
 
-                
+                highScoree < numberOfTrueAnswers ? highScoree = numberOfTrueAnswers : highScoree = highScoree
                 let numberOfQuestions = 7
                 setTimeout(() => {  
                     question.innerText = questionsArray[++index], 
@@ -419,6 +431,7 @@
                     console.log("bool 3: ", bool),
                     index === numberOfQuestions ? questionContainer.classList.add('hide') : index=index,
                     index === numberOfQuestions ? score.innerText += numberOfTrueAnswers : index=index,
+                    index === numberOfQuestions ? highScore.innerText += highScoree : index=index,
                     index === numberOfQuestions ? scoreElement.classList.remove('hide') : index=index,
                     index === numberOfQuestions ? restartButton.classList.remove('hide') : index=index,
                     index === numberOfQuestions ? restartButtonElement.classList.remove('hide') : index=index
