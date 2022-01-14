@@ -54,8 +54,6 @@
     img.style.display = 'none';
     img.crossOrigin = 'anonymous';
     img.onload = start;
-    // img.width=400;
-    // img.height=400;
 
     function start() {
       canvas.width = img.width
@@ -139,7 +137,7 @@
     function init() {
       MENU = new Graph(); //global
       display(MENU); display(cx); display(img);
-      MENU.loadImage("../images/horse2.jpeg")
+      MENU.loadImage("images/horse2.jpeg");
     }
     canvas.addEventListener('mousemove', pick);
     try {
